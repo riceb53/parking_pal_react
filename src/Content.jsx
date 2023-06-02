@@ -64,11 +64,6 @@ export function Content() {
             <p>50% of tickets in this area are between the hours of {q1q3[0]} and {q1q3[1]}</p>
             <p>50% of street sweeping tickets in this area are between the hours of {q1q3StrClean[0]} and {q1q3StrClean[1]}</p>
 
-            {Object.keys(citationTypes).map(desc => (
-              <div key="desc">                
-                <p>{desc}: {Number(((citationTypes[desc] / citations.length) * 100).toFixed(0))}%</p>
-              </div>              
-            ))}
           </div>        
         
         
@@ -108,6 +103,19 @@ export function Content() {
           </GoogleMap>
         )}
           
+
+          <div>
+            <h3>
+              These are the most popular citations given in this area:
+            </h3>
+          {Object.keys(citationTypes).map(desc => (
+              <div key="desc">                
+                <p>{desc}: {Number(((citationTypes[desc] / citations.length) * 100).toFixed(0))}%</p>
+              </div>              
+            ))}
+            
+          </div>        
+        
       </div>           
     </div>
   )
