@@ -4,9 +4,18 @@ import { GoogleMap, MarkerF, useLoadScript, InfoWindowF } from "@react-google-ma
 import "./Content.css";
 
 
-const apiKey = import.meta.env.VITE_GOOGLE_API_KEY_2
-
 export function Content() {
+  let apiKey = null;
+  let domain = null;
+  if (import.meta.env.VITE_GOOGLE_API_KEY_2) {
+    // Handle the case when not deployed on Netlify    
+    apiKey = import.meta.env.VITE_GOOGLE_API_KEY_2
+    domain = 'http://localhost:8000';
+  } else {
+    // Access the API key when deployed on Netlify
+    apiKey = process.env.GOOGLE_API;  
+    domain = 'http://18.118.24.157';  
+  }
   const [citations, setCitations] = useState([])
   
   const { isLoaded } = useLoadScript({
@@ -27,7 +36,7 @@ export function Content() {
 
   
   const getCitations = () => {
-    axios.get(`http://localhost:8000/?q=${address}`).then(response => {
+    axios.get(`${domain}/?q=${address}`).then(response => {
       setCitations(response.data.citations)
       setCenter({lat: response.data.closest_coordinates.latitude, lng: response.data.closest_coordinates.longitude})
       console.log(response.data)
