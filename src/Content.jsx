@@ -14,7 +14,7 @@ export function Content() {
   } else {
     // Access the API key when deployed on Netlify
     apiKey = process.env.GOOGLE_API;  
-    domain = 'http://18.118.24.157';  
+    domain = 'https://18.118.24.157';  
   }
   const [citations, setCitations] = useState([])
   
