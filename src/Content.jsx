@@ -13,6 +13,8 @@ export function Content() {
     domain = 'http://localhost:8000';
   } else {
     // Access the API key when deployed on Netlify
+    console.log('in the netlify part')
+    console.log(process.env.TEST)
     apiKey = process.env.VITE_GOOGLE_API_KEY;  
     domain = 'https://18.118.24.157';      
   }
