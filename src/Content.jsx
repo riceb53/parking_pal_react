@@ -12,9 +12,8 @@ export function Content() {
     // Handle the case when not deployed on Netlify        
     domain = 'http://localhost:8000'; 
   } else {    
-    // Access the API key when deployed on Netlify
-    console.log('in the netlify part')        
-    domain = 'https://18.118.24.157';     
+    // Access the API key when deployed on Netlify       
+    domain = 'https://sfparkingpalapi.com';     
   }
   const [citations, setCitations] = useState([])
   
