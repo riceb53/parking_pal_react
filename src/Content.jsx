@@ -9,14 +9,17 @@ export function Content() {
   let domain = null;
   if (import.meta.env.VITE_GOOGLE_API_KEY_2) {
     // Handle the case when not deployed on Netlify    
+    console.log(import.meta.env)
     apiKey = import.meta.env.VITE_GOOGLE_API_KEY_2
-    domain = 'http://localhost:8000';
+    domain = 'http://localhost:8000'; 
   } else {
+    console.log(import.meta.env)
+    console.log(process.env)
     // Access the API key when deployed on Netlify
     console.log('in the netlify part')
-    console.log(process.env.TEST)
+    console.log(process.env)
     apiKey = process.env.VITE_GOOGLE_API_KEY;  
-    domain = 'https://18.118.24.157';      
+    domain = 'https://18.118.24.157';     
   }
   const [citations, setCitations] = useState([])
   
