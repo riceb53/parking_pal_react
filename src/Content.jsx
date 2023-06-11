@@ -7,18 +7,13 @@ import "./Content.css";
 export function Content() {
   let apiKey = null;
   let domain = null;
+  apiKey = import.meta.env.VITE_GOOGLE_API_KEY
   if (import.meta.env.VITE_GOOGLE_API_KEY_2) {
-    // Handle the case when not deployed on Netlify    
-    console.log(import.meta.env)
-    apiKey = import.meta.env.VITE_GOOGLE_API_KEY_2
+    // Handle the case when not deployed on Netlify        
     domain = 'http://localhost:8000'; 
-  } else {
-    console.log(import.meta.env)
-    console.log(process.env)
+  } else {    
     // Access the API key when deployed on Netlify
-    console.log('in the netlify part')
-    console.log(process.env)
-    apiKey = process.env.VITE_GOOGLE_API_KEY;  
+    console.log('in the netlify part')        
     domain = 'https://18.118.24.157';     
   }
   const [citations, setCitations] = useState([])
