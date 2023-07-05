@@ -35,7 +35,12 @@ export function Content() {
   const [citationsLoading, setCitationsLoading] = useState(true)  
 
   
-  const getCitations = () => {
+  const getCitations = (event) => {
+    console.log(event)
+    if (event) {
+      event.preventDefault();
+    }
+    
     setCitationsLoading(true)
     axios.get(`${domain}/?q=${address}`).then(response => {
       setCitations(response.data.citations)
@@ -62,10 +67,12 @@ export function Content() {
       <div className="App">  
         <div className="content">                
           
-          <div className="search-bar">
-          <input type="text" value={address} onChange={(event) => {setAddress(event.target.value)}} />
-          <button onClick={getCitations}>Should I park here?</button>          
-        </div>
+          <form onSubmit={getCitations}>
+            <div className="search-bar">
+              <input type="text" value={address} onChange={(event) => {setAddress(event.target.value)}}  />
+              <button>Should I park here?</button>          
+            </div>
+          </form>
           <div>
             {citationsLoading && <div>              
               <ReactLoading type={'spin'} color={'#2e61b4'} height={667} width={375} />
