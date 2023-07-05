@@ -2,6 +2,9 @@ import axios from "axios"
 import { useEffect, useState, useMemo } from "react"
 import { GoogleMap, MarkerF, useLoadScript, InfoWindowF } from "@react-google-maps/api";
 import "./Content.css";
+import ReactLoading from 'react-loading';
+
+
 
 
 export function Content() {
@@ -29,12 +32,11 @@ export function Content() {
   const [q1q3, setq1q3] = useState([0,1])
   const [q1q3StrClean, setq1q3StrClean] = useState([0,1])
   const [citationTypes, setCitationTypes] = useState({})
-  // const 
-
-  
+  const [citationsLoading, setCitationsLoading] = useState(true)  
 
   
   const getCitations = () => {
+    setCitationsLoading(true)
     axios.get(`${domain}/?q=${address}`).then(response => {
       setCitations(response.data.citations)
       setCenter({lat: response.data.closest_coordinates.latitude, lng: response.data.closest_coordinates.longitude})
@@ -45,7 +47,7 @@ export function Content() {
       setq1q3(response.data.analysis.q1_q3.q1_q3)
       setq1q3StrClean(response.data.analysis.q1_q3.q1_q3_str_clean)
       setCitationTypes(response.data.analysis.data.types)
-
+      setCitationsLoading(false)
     })
   }
   useEffect(getCitations, [])
@@ -65,6 +67,9 @@ export function Content() {
           <button onClick={getCitations}>Should I park here?</button>          
         </div>
           <div>
+            {citationsLoading && <div>              
+              <ReactLoading type={'spin'} color={'#2e61b4'} height={667} width={375} />
+            </div> }
             <h3>
               Your parking tips:
             </h3>
