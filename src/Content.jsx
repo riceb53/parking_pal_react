@@ -40,15 +40,15 @@ export function Content() {
   
   const getCitations = (event) => {
     // using this rather than state because setAddress was not updating before the web request was made
-    var address = "1500 Fulton St San Francisco, CA"
+    var address = "1500 FULTON STREET, San Francisco, CA"
     if (event) {      
       address = event.target[0].value;
       event.preventDefault();      
     }
     
     setCitationsLoading(true)
-    axios.get(`${domain}/?q=${address}`).then(response => {
-      console.log(address)
+    axios.get(`${domain}/address_search?q=${address}`).then(response => {
+      console.log(response.data)
       setCitations(response.data.citations)
       setCenter({lat: response.data.closest_coordinates.latitude, lng: response.data.closest_coordinates.longitude})
       // console.log(response.data)
@@ -97,7 +97,7 @@ export function Content() {
               <button>Should I park here?</button>
             </form>
 
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
               {citationsLoading && <div>              
                 <ReactLoading type={'spin'} color={'#2e61b4'} height={667} width={375} />
               </div> }
@@ -154,8 +154,7 @@ export function Content() {
               <div key={desc}>                
                 <p>{desc}: {Number(((citationTypes[desc] / citations.length) * 100).toFixed(0))}%</p>
               </div>              
-            ))}
-            
+            ))}            
           </div>        
         
       </div>           
