@@ -1,4 +1,5 @@
 import axios from "axios"
+// import { DotPlot } from "./DotPlot"
 import { useEffect, useState, useMemo, useRef, useCallback } from "react"
 import { GoogleMap, MarkerF, LoadScript, InfoWindowF } from "@react-google-maps/api";
 import "./Content.css";
@@ -85,6 +86,7 @@ export function Content() {
                 style={{ width: "90%" }}                              
                 options={{
                   types: ["address"],
+                  componentRestrictions: { country: "us" },
                   bounds: { 
                     north: 37.929823,
                     south: 37.639829,
@@ -106,7 +108,7 @@ export function Content() {
               </h3>
               <p>The most frequent hour of tickets is {mostFrequentHour}</p>
               <p>50% of tickets in this area are between the hours of {q1q3[0]} and {q1q3[1]}</p>
-              <p>50% of street sweeping tickets in this area are between the hours of {q1q3StrClean[0]} and {q1q3StrClean[1]}</p>
+              {/* <p>50% of street sweeping tickets in this area are between the hours of {q1q3StrClean[0]} and {q1q3StrClean[1]}</p> */}
 
             </div>        
         
@@ -144,7 +146,8 @@ export function Content() {
             </GoogleMap>
           </LoadScript>
         {/* )} */}
-          
+        {/* does not work */}
+          {/* <DotPlot citations={citations} /> */}
 
           <div>
             <h3>
