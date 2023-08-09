@@ -36,11 +36,142 @@ export function Content() {
   const [citationTypes, setCitationTypes] = useState({})
   const [citationsLoading, setCitationsLoading] = useState(false)  
   const [googleLibraries, setGoogleLibraries] = useState(['places'])
+  const [relativeNumberOfTickets, setrelativeNumberOfTickets] = useState(['places'])
+  const [convertToFriendlyDesc, setconvertToFriendlyDesc] = useState({
+    'STR CLEAN': 'Street Cleaning',
+    'RES/OT': 'Residential Parking',
+    'MTR OUT DT': 'Parking Meter-Outside Downtown Core',
+    'METER DTN': 'Parking Meter- Downtown Core',
+    'REG TABS': 'Tabs',
+    'NO PLATES': 'No Plates',
+    'YEL ZONE': 'Yellow Zone',
+    'PK PHB OTD': 'Parking Prohibited On This day',
+    'PRK PROHIB': 'Parking Prohibited',
+    'DRIVEWAY': 'Driveway',
+    'PRK GRADE': 'Parking on Grades',
+    'DBL PARK': 'Double Parking',
+    // questionable
+    'FAIL DISPL': 'Display License Plates',
+    'ON SIDEWLK': 'On Sidewalk',
+    'RED ZONE': 'Red Zone',
+    'TRK ZONE': 'Truck Loading Zone',
+    'WHITE ZONE': 'White Zone',
+    'OT OUT DT': 'Parking Meter-Outside Downtown Core',
+    'PK STANDS': 'Parking in Stand ',
+    'OBSTRCT TF': 'Obstruction of Traffic-Vehicle ',
+    'BLK BIKE L': 'Bicycle Path/Lanes',
+    'BUS ZONE': 'Bus Zone',
+    'OVR 18 " C': 'Over 18 inches From Curb',
+    'FIRE HYD': 'Fire Hydrant',
+    'TMP PK RES': 'Temporary Parking Restriction',
+    'CNSTR TEMP': 'Temporary Construction Zone',
+    'PK/CROSS': 'Parking in Crosswalk',
+    'NO EV REG': 'Not EV',
+    'PLT LEF/AT': 'PLT LEF/AT',
+    'PUB PROP': 'Parking-Public Property',
+    'FACIL CRG': 'FACIL CRG',
+    'N/ W/I SPC': 'N/ W/I SPC',
+    'RESTRICTED': 'RESTRICTED',
+    'ANGLE PARK': 'ANGLE PARK',
+    'WHLCHR ACC': 'WHLCHR ACC',
+    'PK OVR 72H': 'PK OVR 72H',
+    'FAILRPLPLA': 'FAILRPLPLA',
+    'TRNST ONLY': 'TRNST ONLY',
+    'PLATECOVER': 'PLATECOVER',
+    'OT PK DT': 'OT PK DT',
+    'MED DIVIDE': 'MED DIVIDE',
+    'B ZN NO DP': 'B ZN NO DP',
+    'NO VIOL': 'NO VIOL',
+    'MC PRKING': 'MC PRKING',
+    'GREEN ZONE': 'GREEN ZONE',
+    'MAR GRN PK': 'MAR GRN PK',
+    'NOPRK 10P6': 'NOPRK 10P6',
+    'NOPL/PRDSP': 'NOPL/PRDSP',
+    'PK INTER': 'PK INTER',
+    'DISOB SIGN': 'DISOB SIGN',
+    'ON ST LST': 'ON ST LST',
+    'SCH/PUB GD': 'SCH/PUB GD',
+    'BLK/INTER': 'BLK/INTER',
+    'OT MTR PK': 'OT MTR PK',
+    '3 FT WLCHR': '3 FT WLCHR',
+    'ONSTCARSH': 'ONSTCARSH',
+    'PK FR LN': 'PK FR LN',
+    'CM VEH RES': 'CM VEH RES',
+    'UNAUTHFARE': 'UNAUTHFARE',
+    'PKG PROHIB': 'PKG PROHIB',
+    'ON STREET': 'ON STREET',
+    'RR TRACKS': 'RR TRACKS',
+    'NO PRK ZN': 'NO PRK ZN',
+    'NO PERMIT': 'NO PERMIT',
+    'B ZN XHTCH': 'B ZN XHTCH',
+    'ILL PKG': 'ILL PKG',
+    'INVALD PMT': 'INVALD PMT',
+    'OFF STREET': 'OFF STREET',
+    'OFF ST LST': 'OFF ST LST',
+    'PROHIB PRK': 'PROHIB PRK',
+    'LARGE VEHI': 'LARGE VEHI',
+    'BL ZNE BLK': 'BL ZNE BLK',
+    'SGTSEE BUS': 'SGTSEE BUS',
+    'ONEWAY RD': 'ONEWAY RD',
+    'ENG IDLING': 'ENG IDLING',
+    'PLT F/R': 'PLT F/R',
+    'FCL BLK SP': 'FCL BLK SP',
+    'SAFE/RED Z': 'SAFE/RED Z',
+    'WRG WY PKG': 'WRG WY PKG',
+    'RESTR PRK': 'RESTR PRK',
+    'RMV CHLK': 'RMV CHLK',
+    'NO PERM': 'NO PERM',
+    'PRMT WR CR': 'PRMT WR CR',
+    'MTA NONPAY': 'MTA NONPAY',
+    'CNTRFTFARE': 'CNTRFTFARE',
+    'SMOKNG ETC': 'SMOKNG ETC',
+    'FCL OT PK': 'FCL OT PK',
+    'FARE EVASI': 'FARE EVASI',
+    '100FT OVER': '100FT OVER',
+    'OBSTRCT TR': 'OBSTRCT TR',
+    'COMM VEH': 'COMM VEH',
+    'SOUNDEQUIP': 'SOUNDEQUIP',
+    'PRK ON RGT': 'PRK ON RGT',
+    'FR/EVA/YTH': 'FR/EVA/YTH',
+    '15FT FR ST': '15FT FR ST',
+    'SIGNS': 'SIGNS',
+    'FOR HIRE': 'FOR HIRE',
+    'ACC ROADS': 'ACC ROADS',
+    'STR CAR': 'STR CAR',
+    'CAR ALM/EM': 'CAR ALM/EM',
+    'BIC PATHS': 'BIC PATHS',
+    'ABAND. VEH': 'ABAND. VEH',
+    'STAY ON RD': 'STAY ON RD',
+    'SAFE ZONE': 'SAFE ZONE',
+    'FOR SALE': 'FOR SALE',
+    'EXPLS/FLAM': 'EXPLS/FLAM',
+    'CTY HL PER': 'CTY HL PER',
+    'BK CHG BAY': 'BK CHG BAY',
+    'ALT PLATES': 'ALT PLATES',
+    'AD SIGNS': 'AD SIGNS',
+    'URIN/DFECT': 'URIN/DFECT',
+    'UNATEND VH': 'UNATEND VH',
+    'TRANSIT LN': 'TRANSIT LN',
+    'SPITTING': 'SPITTING',
+    'SKARBG/ROL': 'SKARBG/ROL',
+    'SAFETY ZN': 'SAFETY ZN',
+    'PRMT ONLY': 'PRMT ONLY',
+    'PL NT PERS': 'PL NT PERS',
+    'P U C PEMT': 'P U C PEMT',
+    'NO STOP BP': 'NO STOP BP',
+    'IMP DPL PL': 'IMP DPL PL',
+    'DISTURBAN': 'DISTURBAN',
+    'DBL PKG': 'Double Parking',
+    'CAR ALM 15': 'CAR ALM 15',
+    'BRIDGE': 'BRIDGE',
+    'BLOCKING': 'BLOCKING',
+    'BLK INTER': 'BLK INTER',
+  })
 
 
   
   const getCitations = (event) => {
-    // using this rather than state because setAddress was not updating before the web request was made
+    // '// using this rather than state because setAddress was not ': '',updating before the web request was made
     var address = "1500 FULTON STREET, San Francisco, CA"
     if (event) {      
       address = event.target[0].value;
@@ -57,9 +188,10 @@ export function Content() {
       setMostFrequentHour(Object.keys(hours).reduce((a, b) => hours[a] > hours[b] ? a : b))
       // console.log(response.data.analysis.q1_q3.q1_q3_str_clean)
       setq1q3(response.data.analysis.q1_q3.q1_q3)
-      setq1q3StrClean(response.data.analysis.q1_q3.q1_q3_str_clean)
-      setCitationTypes(response.data.analysis.data.types)
+      setq1q3StrClean(response.data.analysis.q1_q3.str_clean)
+      setCitationTypes(response.data.analysis.data.types_and_frequencies)
       setCitationsLoading(false)
+      setrelativeNumberOfTickets(response.data.analysis.expected_tickets_per_block)
     })
   }
   useEffect(getCitations, [])
@@ -106,9 +238,11 @@ export function Content() {
               <h3>
                 Your parking tips:
               </h3>
-              <p>The most frequent hour of tickets is {mostFrequentHour}</p>
+              <p>The most tickets are given at the {mostFrequentHour} hour</p>
+              {/* <p>The total number of tickets given in the last year is {citations.length}</p> */}
               <p>50% of tickets in this area are between the hours of {q1q3[0]} and {q1q3[1]}</p>
-              {/* <p>50% of street sweeping tickets in this area are between the hours of {q1q3StrClean[0]} and {q1q3StrClean[1]}</p> */}
+              <p>50% of street sweeping tickets in this area are between the hours of {q1q3StrClean[0]} and {q1q3StrClean[1]}</p>
+              <p>{relativeNumberOfTickets}</p>
 
             </div>        
         
@@ -136,8 +270,8 @@ export function Content() {
                   onCloseClick={() => setSelectedCitation(null)}
                 >
                   <div>
-                    <div>{selectedCitation.citation_issued_datetime}</div>
-                    <div>{selectedCitation.violation_desc}</div>
+                    <div>{new Date(selectedCitation.citation_issued_datetime).toLocaleString()}</div>
+                    <div>{convertToFriendlyDesc[selectedCitation.violation_desc]}</div>
                     <div>{selectedCitation.citation_location}</div>
                   </div>
                 </InfoWindowF>
@@ -153,11 +287,34 @@ export function Content() {
             <h3>
               These are the most popular citations given in this area:
             </h3>
-          {Object.keys(citationTypes).map(desc => (
+            {Object.keys(citationTypes).map(desc => {
+              // Define your CSS classes
+              const actualPercentage = citationTypes[desc]['actual_percentage'];
+              const estimatedPercentage = citationTypes[desc]['estimated_percentage'];
+              const difference = actualPercentage - estimatedPercentage;
+      
+              
+              let cssClass = '';
+              if (difference > 10) {
+                cssClass = 'red';
+              } else if (difference < -10) {
+                cssClass = 'green';
+              }
+              
+              return (              
+              <div key={desc}>
+                {/* <div>Estimated likelihood of {desc}: {citationTypes[desc]['estimated_percentage']}%
+                </div> */}
+                <div>{convertToFriendlyDesc[desc]}: <span className={cssClass}>{citationTypes[desc]['actual_percentage']}%</span>
+                </div>
+              </div>
+            )})}
+            <p>Citations highlighted in red are more frequent than average on this block, citations highlighted in green are less frequent than average</p>
+          {/* {Object.keys(citationTypes).map(desc => (
               <div key={desc}>                
                 <p>{desc}: {Number(((citationTypes[desc] / citations.length) * 100).toFixed(0))}%</p>
               </div>              
-            ))}            
+            ))}             */}
           </div>        
         
       </div>           
