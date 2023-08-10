@@ -241,7 +241,13 @@ export function Content() {
               <p>The most tickets are given at the {mostFrequentHour} hour</p>
               {/* <p>The total number of tickets given in the last year is {citations.length}</p> */}
               <p>50% of tickets in this area are between the hours of {q1q3[0]} and {q1q3[1]}</p>
-              <p>50% of street sweeping tickets in this area are between the hours of {q1q3StrClean[0]} and {q1q3StrClean[1]}</p>
+              {q1q3StrClean.length > 0 ? (
+                // Render something if q1q3StrClean has a length greater than 0
+                <p>50% of street sweeping tickets in this area are between the hours of {q1q3StrClean[0]} and {q1q3StrClean[1]}</p>        
+              ) : (
+                // Render something else if q1q3StrClean is empty
+                <span></span>
+              )}
               <p>{relativeNumberOfTickets}</p>
 
             </div>        
