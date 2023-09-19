@@ -276,7 +276,7 @@ export function Content() {
                   onCloseClick={() => setSelectedCitation(null)}
                 >
                   <div>
-                    <div>{new Date(selectedCitation.citation_issued_datetime).toLocaleString()}</div>
+                    <div>{selectedCitation.citation_issued_day_of_week} {new Date(selectedCitation.citation_issued_datetime).toLocaleString()} </div>
                     <div>{convertToFriendlyDesc[selectedCitation.violation_desc]}</div>
                     <div>{selectedCitation.citation_location}</div>
                   </div>
