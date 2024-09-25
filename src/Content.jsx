@@ -182,7 +182,7 @@ export function Content() {
     axios.get(`${domain}/address_search?q=${address}`).then(response => {
       console.log(response.data)
       setCitations(response.data.citations)
-      setCenter({lat: response.data.closest_coordinates.latitude, lng: response.data.closest_coordinates.longitude})
+      setCenter({lat: parseFloat(response.data.closest_coordinates.latitude), lng: parseFloat(response.data.closest_coordinates.longitude)})
       // console.log(response.data)
       const hours = response.data.analysis.data.hours
       setMostFrequentHour(Object.keys(hours).reduce((a, b) => hours[a] > hours[b] ? a : b))
